@@ -1,7 +1,8 @@
 /* {Nz}®️ Broadcast Controller Message Sender v.0.1
 ================================================================
 Nizzine Technologies.
-
+How to use:
+Press "Run" in Programmable Block and it will send a new message each time.
 */
 IMyBroadcastController broad;
 IMyChatBroadcastControllerComponent broadEC;
