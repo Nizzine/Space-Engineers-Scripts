@@ -1,6 +1,6 @@
-// {Nz}®️ Nizzine Technolgies - Tutorial: Get Thruster Types v0.1
-/*================================================================
-
+/* {Nz}®️ Tutorial: Get Thruster Types v.0.1
+================================================================
+Nizzine Technologies.
 
 Gets Ion, Hydro and Atmos thrusters, counts and groups them.
 Not guaranteed to work with mods.
