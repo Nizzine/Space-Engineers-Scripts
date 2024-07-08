@@ -1,80 +1,60 @@
-/* {Nz}®️ Broadcast Controller Message Sender v.0.1
+/* {Nz}®️ Broadcast Controller Message Sender v.0.2
 ================================================================
 Nizzine Technologies.
 How to use:
 Press "Run" in Programmable Block and it will send a new message each time.
+
 */
-IMyBroadcastController broad;
-IMyChatBroadcastControllerComponent broadEC;
-int mesegg = 0;
-int set = 0;
+// Declare dependencies and variables
+IMyBroadcastController broad; // Broadcast controller instance
+IMyChatBroadcastControllerComponent broadEC; // Chat broadcast component instance
+List<string> messages = new List<string>(); // List of messages to display
+int index = 0; // Index of the current message
 
 public Program()
 {
+    // Get the broadcast controller instance and check if it's not null
     broad = GridTerminalSystem.GetBlockWithName("Broadcast Controller") as IMyBroadcastController;
     if (broad != null)
     {
+        // Try to get the chat broadcast component from the broadcast controller
         broad.Components.TryGet<IMyChatBroadcastControllerComponent>(out broadEC);
     }
+    Init(); // Initialize the program
+}
+
+void Init()
+{
+    // Add messages to the list
+    messages.AddRange(new string[]
+    {
+        "One elephunk",
+        "Two birbs",
+        "TRHEEEEEEEE",
+        "Fourth",
+        "Be on doubt",
+        "SixXx",
+        "Sven",
+        "I have a pen",
+        "nine... presumably",
+        "Ten",
+        "Now they stole my pen"
+    });
 }
 
 public void Main()
-{    
+{
+    // Check if the chat broadcast component is null
     if (broadEC == null)
     {
-        Echo("Warn: Broadcast Controller or component not found");
-        return;
-    }
-    int currentMaxMessageCount = broadEC.MaxMessageCount;
-    string[] currentMessages = new string[currentMaxMessageCount];
-
-    for (int i = 0; i < currentMaxMessageCount; i++)
-    {
-        currentMessages[i] = broadEC.GetMessage(i);
+        Echo("Warn: Broadcast Controller or component not found"); // Display a warning message
+        return; // Exit the method
     }
 
-    if (set == 0)
-    {
-        broadEC.SetMessage(0, "One");
-        broadEC.SetMessage(1, "Two");
-        broadEC.SetMessage(2, "Three");
-        broadEC.SetMessage(3, "Nizzine Technologies is supreme");
-        broadEC.SetMessage(4, "Five");
-        broadEC.SetMessage(5, "Six");
-        broadEC.SetMessage(6, "Seven");
-        broadEC.SetMessage(7, "Nizzine is clever");
-        broadEC.SendMessage(mesegg);
-        mesegg++;
-        
+    // Set the initial message and send it to be displayed
+    broadEC.SetMessage(0, messages[index]);
+    broadEC.SendMessage(0);
 
-    }
-    else if (set == 1)
-    {
-        broadEC.SetMessage(0, "Eight");
-        broadEC.SetMessage(1, "Nine");
-        broadEC.SetMessage(2, "Ten");
-        broadEC.SetMessage(3, "Flash your tetten");
-        broadEC.SetMessage(4, "Elev... no tetten? Meh..");
-        broadEC.SetMessage(5, "Bye then.");
-        broadEC.SetMessage(6, "-ended transmission-");
-        broadEC.SetMessage(7, "");
-        broadEC.SendMessage(mesegg);
-        mesegg++;
-    }
-    else if (set >= 2)
-    {
-        set = 0;
-        mesegg = 0;
-    }
-    
-    if (mesegg >= 8)
-    {
-        set++;
-        mesegg = 0;
-    }
-
-    Echo(mesegg.ToString());
-    Echo(set.ToString());
-
+    // Increment the index and wrap around if necessary
+    index = (index + 1) % messages.Count;
 }
-
